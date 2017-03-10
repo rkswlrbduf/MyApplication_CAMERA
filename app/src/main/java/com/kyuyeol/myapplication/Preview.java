@@ -15,6 +15,7 @@ import android.hardware.camera2.CaptureRequest;
 import android.hardware.camera2.params.StreamConfigurationMap;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.os.Message;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -76,6 +77,7 @@ public class Preview extends Thread {
         } catch (CameraAccessException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+            Log.d(TAG,"CameraAccessException");
         }
         Log.e(TAG, "openCamera X");
     }
@@ -114,7 +116,7 @@ public class Preview extends Thread {
         @Override
         public void onOpened(CameraDevice camera) {
             // TODO Auto-generated method stub
-            Toast.makeText(mContext.getApplicationContext(),"onOpened",Toast.LENGTH_SHORT);
+            Log.d(TAG,"onOpened");
             mCameraDevice = camera;
             startPreview();
         }
@@ -122,13 +124,13 @@ public class Preview extends Thread {
         @Override
         public void onDisconnected(CameraDevice camera) {
             // TODO Auto-generated method stub
-            Toast.makeText(mContext.getApplicationContext(),"onDisconnected",Toast.LENGTH_SHORT);
+            Log.d(TAG,"onDisconnected");
         }
 
         @Override
         public void onError(CameraDevice camera, int error) {
             // TODO Auto-generated method stub
-            Toast.makeText(mContext.getApplicationContext(),"onError",Toast.LENGTH_SHORT);
+            Log.d(TAG,"onError");
         }
 
     };
@@ -136,12 +138,12 @@ public class Preview extends Thread {
     protected void startPreview() {
         // TODO Auto-generated method stub
         if(null == mCameraDevice || !mTextureView.isAvailable() || null == mPreviewSize) {
-            Toast.makeText(mContext.getApplicationContext(),"startPreview fail, return",Toast.LENGTH_SHORT);
+            Log.d(TAG,"startPreview fail, return");
         }
 
         SurfaceTexture texture = mTextureView.getSurfaceTexture();
         if(null == texture) {
-            Toast.makeText(mContext.getApplicationContext(),"texture is null, return",Toast.LENGTH_SHORT);
+            Log.d(TAG,"texture is null, return");
             return;
         }
 
@@ -150,8 +152,10 @@ public class Preview extends Thread {
 
         try {
             mPreviewBuilder = mCameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW);
+            Log.d(TAG,"mPreviewBuilder Completed");
         } catch (CameraAccessException e) {
             // TODO Auto-generated catch block
+            Log.e(TAG,"CameraAccessException");
             e.printStackTrace();
         }
         mPreviewBuilder.addTarget(surface);
@@ -169,11 +173,12 @@ public class Preview extends Thread {
                 @Override
                 public void onConfigureFailed(CameraCaptureSession session) {
                     // TODO Auto-generated method stub
-                    Toast.makeText(mContext, "onConfigureFailed", Toast.LENGTH_LONG).show();
+                    Log.d(TAG,"onConfigureFailed");
                 }
             }, null);
         } catch (CameraAccessException e) {
             // TODO Auto-generated catch block
+            Log.e(TAG,"CameraAccessException");
             e.printStackTrace();
         }
     }
@@ -191,15 +196,18 @@ public class Preview extends Thread {
 
         try {
             mPreviewSession.setRepeatingRequest(mPreviewBuilder.build(), null, backgroundHandler);
+            Log.d(TAG,"setRepeatingRequest Completed");
         } catch (CameraAccessException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+            Log.e(TAG,"CameraAccessException");
         }
     }
 
     public void setSurfaceTextureListener()
     {
         mTextureView.setSurfaceTextureListener(mSurfaceTextureListener);
+        Log.d(TAG,"setSurfaceTextureListener");
     }
 
     public void onResume() {

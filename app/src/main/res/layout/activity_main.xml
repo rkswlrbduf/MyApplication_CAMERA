@@ -13,11 +13,37 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+<!--    <SurfaceView
+        android:id="@+id/Larrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:visibility="visible"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/ic_launcher"/>-->
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerVertical="true"
         android:gravity="center"
         android:textSize="30dp"
-        android:text="수근이 팬티에 오줌 지렸다\n수근이 팬티에 오줌 지렸다\n수근이 팬티에 오줌 지렸다\n수근이 팬티에 오줌 지렸다\n수근이 팬티에 오줌 지렸다\n수근이 팬티에 오줌 지렸다"/>
+        android:id="@+id/Rbtn"
+        android:text="다음"/>
+
+    <Button
+        android:id="@+id/Lbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:textSize="30dp"
+        android:text="이전"/>
+
+
 
 </RelativeLayout>
